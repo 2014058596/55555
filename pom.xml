@@ -36,6 +36,7 @@
         <alibaba-nacos.version>0.2.2.RELEASE</alibaba-nacos.version>
         <swagger.version>2.7.0</swagger.version>
         <mysql.version>8.0.11</mysql.version>
+        <velocity.version>2.0</velocity.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -117,6 +118,12 @@
                 <version>${mysql.version}</version>
             </dependency>
 
+            <!-- 自动生成工具 -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

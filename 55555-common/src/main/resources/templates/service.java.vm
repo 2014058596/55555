@@ -1,0 +1,16 @@
+package ${package.Service};
+
+import ${cfg.entityModelPackage}.${entity}Model;
+import ${superServiceClassPackage};
+
+/**
+ * <p>
+ * ${table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @version ${cfg.time}
+ */
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}Model> {
+	
+}

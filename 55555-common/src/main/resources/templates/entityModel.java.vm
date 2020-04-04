@@ -1,0 +1,24 @@
+package ${cfg.entityModelPackage};
+import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import ${cfg.entityPackage}.${entity};
+/**
+ * <p>
+ * ${table.comment} 扩展对象 注：扩展字段需要添加 @TableField(exist = false) 标签表明为非数据库字段
+ *
+ * </p>
+ *
+ * @author ${author}
+ * @version ${cfg.time}
+ * @description
+ */
+@Data
+#if(${table.convert})
+@TableName("${table.name}")
+@ApiModel(value = "${table.comment}")
+#end
+public class ${entity}Model extends ${entity} {
+
+}

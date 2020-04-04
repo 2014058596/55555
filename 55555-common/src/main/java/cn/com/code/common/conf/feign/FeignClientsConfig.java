@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /** 
-* @ClassName: FeignClientsConfig 
+* @ClassName: FeignClientsConfig
 * @Description: TODO
 * @author: 55555
-* @date: 2020年04月04日 10:25 下午
+* @date: 2020年04月04日 10:41 下午
 */
 @Configuration
 @ConditionalOnClass(Feign.class)

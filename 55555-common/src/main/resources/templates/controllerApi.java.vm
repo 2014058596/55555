@@ -1,0 +1,101 @@
+package ${cfg.controllerApiPackage};
+
+import cn.com.geostar.common.beans.StandardResult;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.web.bind.annotation.*;
+import ${cfg.entityModelPackage}.${entity}Model;
+import java.util.Map;
+import ${cfg.constantsClass};
+
+
+
+/**
+ *
+ *   ${entity} API接口    ${table.comment}
+ *
+ *   @author ${author}
+ *   @since ${cfg.time}
+ */
+
+@FeignClient(name = ${cfg.applicationName})
+public interface I${table.controllerName} {
+
+    
+    /**
+     * 获取分页列表
+     *
+     * @param pageSize
+     * @param pageNumber
+     * @param ${table.entityPath}Model
+     * @return
+     * @author : ${author}
+     * @since : Create in ${date}
+     */
+    @GetMapping("/${table.entityPath}")
+    public StandardResult selectPage(
+                                     @SpringQueryMap ${entity}Model ${table.entityPath}Model,
+                                     @RequestParam(name = "pageSize", required = false) Integer pageSize,
+                                     @RequestParam(name = "pageNumber", required = false) Integer pageNumber);
+
+    /**
+     * 获取列表
+     *
+     * @author : ${author}
+     * @since : Create in ${date}
+     */
+
+    @GetMapping("/${table.entityPath}List")
+    public StandardResult selectList(@SpringQueryMap ${entity}Model ${table.entityPath}Model);
+
+
+
+
+
+    /**
+     * 通过id获取${entity}Model
+     *
+     * @param id
+     * @return
+     * @author : ${author}
+     * @since : Create in ${date}
+     */
+    @GetMapping("/${table.entityPath}/{id}")
+    public StandardResult selectById(@PathVariable("id") String id);
+
+    /**
+     * 通过id删除${entity}Model
+     *
+     * @param id
+     * @return
+     * @author : ${author}
+     * @since : Create in ${date}
+     */
+    @DeleteMapping("/${table.entityPath}/{id}")
+    public StandardResult deleteById(@PathVariable("id") String id);
+
+    /**
+     * 添加${entity}Model
+     *
+     * @param ${table.entityPath}Model
+     * @return
+     * @author : ${author}
+     * @since : Create in ${date}
+     */
+    @PostMapping("/${table.entityPath}")
+    public StandardResult insert(@ModelAttribute ${entity}Model ${table.entityPath}Model);
+
+    /**
+     * 更新${entity}Model
+     *
+     * @param ${table.entityPath}Model
+     * @return
+     * @author : ${author}
+     * @since : Create in ${date}
+     */
+    @PutMapping("/${table.entityPath}")
+    public StandardResult updateById(@RequestBody ${entity}Model ${table.entityPath}Model);
+    
+    
+
+}
