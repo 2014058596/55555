@@ -14,7 +14,7 @@ import org.springframework.web.filter.CorsFilter;
 * @date: 2020年02月27日 12:25 下午
 */
 @SpringBootConfiguration
-@ConditionalOnProperty(name = "allow.cors", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(name = "allow.cors", havingValue = "true")
 public class CorsConfig {
     
     private CorsConfiguration buildConfig() {

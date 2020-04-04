@@ -4,7 +4,6 @@ import cn.com.code.common.bean.CommonException;
 import cn.com.code.common.bean.ExceptionDto;
 import cn.com.code.common.bean.HttpStatus;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,8 +27,8 @@ public class ExceptionHandler {
      */
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public ExceptionDto handlerException(Exception e, HttpServletResponse response) {
-        log.error("全局异常拦截器：{}", e);
-        // 获取根异常
+        log.error("全局异常拦截器：{0}", e);
+        //获取根异常
         Throwable cause = e.getCause();
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.code());
         ExceptionDto exceptionDTO = new ExceptionDto();
@@ -55,7 +54,7 @@ public class ExceptionHandler {
      */
     @org.springframework.web.bind.annotation.ExceptionHandler(CommonException.class)
     public ExceptionDto handlerCommonException(CommonException e, HttpServletResponse response) {
-        log.error("全局异常拦截器：{}", e);
+        log.error("全局异常拦截器：{0}", e);
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.code());
         ExceptionDto exceptionDTO = new ExceptionDto();
         exceptionDTO.setCode(e.getCode());
