@@ -35,6 +35,7 @@
         <fastjson.version>1.2.49</fastjson.version>
         <alibaba-nacos.version>0.2.2.RELEASE</alibaba-nacos.version>
         <swagger.version>2.7.0</swagger.version>
+        <mysql.version>8.0.11</mysql.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -107,6 +108,13 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
 
         </dependencies>
