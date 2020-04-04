@@ -8,8 +8,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @ClassName: AdminStartApplication
- * @Description: TODO
+ * @ClassName: GatewayStartApplication
+ * @Description: 启动类
  * @author: 55555
  * @date: 2020年04月04日 5:53 下午
  */
