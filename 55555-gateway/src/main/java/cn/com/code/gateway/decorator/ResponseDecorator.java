@@ -1,0 +1,59 @@
+package cn.com.code.gateway.decorator;
+
+import com.alibaba.fastjson.JSON;
+import org.reactivestreams.Publisher;
+import org.springframework.core.io.buffer.DataBuffer;
+import org.springframework.core.io.buffer.DataBufferFactory;
+import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.http.server.reactive.ServerHttpResponseDecorator;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.nio.charset.Charset;
+
+/**
+ * @ClassName: ResponseDecorator
+ * @Description: 统一响应装饰器
+ * @author: 55555
+ * @date: 2020年04月08日 4:31 下午
+ */
+public class ResponseDecorator extends ServerHttpResponseDecorator {
+
+    private ServerWebExchange exchange;
+
+    public ResponseDecorator(ServerHttpResponse delegate) {
+        super(delegate);
+    }
+
+    public ResponseDecorator(ServerHttpResponse delegate,ServerWebExchange exchange) {
+        super(delegate);
+        this.exchange = exchange;
+    }
+
+
+
+    @Override
+    public Mono<Void> writeWith(Publisher<? extends DataBuffer> body) {
+        if (body instanceof Flux) {
+            Flux<? extends DataBuffer> fluxBody = (Flux<? extends DataBuffer>) body;
+            return super.writeWith(fluxBody.map(dataBuffer -> {
+                byte[] content = new byte[dataBuffer.readableByteCount()];
+                dataBuffer.read(content);
+                //释放掉内存
+                DataBufferUtils.release(dataBuffer);
+                //原始响应
+                String originalBody = new String(content, Charset.forName("UTF-8"));
+                //修改后的响应体
+                String finalBody = JSON.toJSONString("ooooooo");
+
+                ServerHttpResponse originalResponse = exchange.getResponse();
+                DataBufferFactory bufferFactory = originalResponse.bufferFactory();
+                return bufferFactory.wrap(finalBody.getBytes());
+            }));
+        }
+        return super.writeWith(body);
+    }
+
+}
