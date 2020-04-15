@@ -12,7 +12,7 @@
         <module>55555-admin-api</module>
         <module>55555-admin-service</module>
     </modules>
-
+    <packaging>pom</packaging>
     <artifactId>55555-admin</artifactId>
 
 

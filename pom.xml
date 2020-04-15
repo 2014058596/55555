@@ -7,7 +7,6 @@
     <modules>
         <module>55555-common</module>
         <module>55555-admin</module>
-        <module>55555-common</module>
         <module>55555-gateway</module>
     </modules>
     <parent>
