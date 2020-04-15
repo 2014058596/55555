@@ -35,12 +35,6 @@
             <artifactId>mybatisplus-spring-boot-starter</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- spring aop -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- mybatis-plus begin -->
         <dependency>
