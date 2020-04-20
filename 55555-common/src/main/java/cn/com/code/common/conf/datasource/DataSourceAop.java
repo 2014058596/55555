@@ -1,5 +1,6 @@
 package cn.com.code.common.conf.datasource;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -7,6 +8,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -19,6 +21,7 @@ import java.lang.reflect.Method;
 */
 @Aspect
 @Component
+@ConditionalOnClass(DruidDataSource.class)
 public class DataSourceAop {
 	
 	@Pointcut("@annotation(cn.com.code.common.conf.datasource.DataSource)")

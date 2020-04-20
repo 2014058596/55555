@@ -22,24 +22,33 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+        <!--cloud admin-->
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>55555-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+            <version>${spring-cloud-admin.version}</version>
         </dependency>
-        <!-- mybatis-plus begin -->
+        <!--boot-->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <!--jetty   排除tomcat  引入jetty的原因  https://github.com/spring-projects/spring-boot/issues/15057 -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatisplus-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>
-        <finalName>55555-admin</finalName>
+        <finalName>55555-system</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -30,13 +30,13 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- mybatis-plus begin -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatisplus-spring-boot-starter</artifactId>
             <scope>provided</scope>
         </dependency>
-
-        <!-- mybatis-plus begin -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
@@ -51,6 +51,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
+            <scope>provided</scope>
         </dependency>
         <!-- spring aop -->
         <dependency>
@@ -85,6 +86,22 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <!--admin-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-cloud-admin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!--zipkin-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
     </dependencies>
 
