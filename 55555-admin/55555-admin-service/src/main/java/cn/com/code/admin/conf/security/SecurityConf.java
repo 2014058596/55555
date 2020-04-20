@@ -1,12 +1,13 @@
 package cn.com.code.admin.conf.security;
 
+import cn.com.code.admin.handler.security.SecurityAuthenticationFailureHandler;
+import cn.com.code.admin.handler.security.SecurityAuthenticationSuccessHandler;
+import cn.com.code.admin.handler.security.SecurityLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.io.PrintWriter;
 
 /**
  * @ClassName: SecurityConf
@@ -20,6 +21,16 @@ public class SecurityConf  extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccessTokenFilter accessTokenFilter;
+
+    @Autowired
+    private SecurityAuthenticationFailureHandler failureHandler;
+
+    @Autowired
+    private SecurityAuthenticationSuccessHandler successHandler;
+
+    @Autowired
+    private SecurityLogoutSuccessHandler logoutSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.addFilterBefore(accessTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -38,27 +49,14 @@ public class SecurityConf  extends WebSecurityConfigurerAdapter {
                 //定义登录时，用户密码的 key，默认为 password
                 .passwordParameter("password")
                 //登录成功的处理器
-                .successHandler((req, resp, authentication) -> {
-                    PrintWriter out = resp.getWriter();
-                    out.write("success");
-                    out.flush();
-                })
-                .failureHandler((req, resp, exception) -> {
-                    PrintWriter out = resp.getWriter();
-                    out.write("fail");
-                    out.flush();
-                })
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
                 //和表单登录相关的接口统统都直接通过
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessHandler((req, resp, authentication) -> {
-                    resp.setContentType("application/json;charset=utf-8");
-                    PrintWriter out = resp.getWriter();
-                    out.write("logout success");
-                    out.flush();
-                })
+                .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll()
                 .and()
                 .httpBasic()
