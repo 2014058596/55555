@@ -26,7 +26,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <spring-aop.version>2.1.4.RELEASE</spring-aop.version>
-        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <log4j.version>1.2.17</log4j.version>
         <mybatis-plus.version>2.1.4</mybatis-plus.version>
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
@@ -78,6 +78,12 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid-spring-boot-starter.version}</version>
             </dependency>
+            <!--jdbc-spring-boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring-aop.version}</version>
+            </dependency>
             <!-- fastjson -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -127,12 +133,7 @@
                 <version>${velocity.version}</version>
             </dependency>
 
-            <!--ZIPKIN-->
-            <dependency>
-                <groupId>io.zipkin.java</groupId>
-                <artifactId>zipkin-autoconfigure-ui</artifactId>
-                <version>${zipkin.version}</version>
-            </dependency>
+            <!--Zipkin-->
             <dependency>
                 <groupId>io.zipkin.java</groupId>
                 <artifactId>zipkin-server</artifactId>
@@ -140,9 +141,23 @@
             </dependency>
             <dependency>
                 <groupId>io.zipkin.java</groupId>
-                <artifactId>zipkin-storage-mysql</artifactId>
+                <artifactId>zipkin-autoconfigure-ui</artifactId>
+                <version>${zipkin.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!--保存到数据库需要如下依赖-->
+            <dependency>
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-autoconfigure-storage-mysql</artifactId>
                 <version>${zipkin.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.5.5</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

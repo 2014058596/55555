@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
+import zipkin2.server.internal.EnableZipkinServer;
 
 /**
  * @ClassName: SystemStartApplication
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableAdminServer
 @ComponentScan("cn.com.code")
+@EnableZipkinServer
 public class SystemStartApplication extends SpringBootServletInitializer {
 
     @Override
