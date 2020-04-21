@@ -89,6 +89,13 @@ private static final long serialVersionUID = 1L;
     @TableField("IS_DELETE")
 	private String isDelete;
 
+    /**
+     * 是否删除
+     */
+    @ApiModelProperty(value = "是否删除")
+    @TableField("NAME")
+    private String name;
+
 
 
 	@Override

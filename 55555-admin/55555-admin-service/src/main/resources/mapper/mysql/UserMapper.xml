@@ -11,6 +11,32 @@
 		<result column="STATUS" property="status" />
 		<result column="CREATE_TIME" property="createTime" />
 		<result column="IS_DELETE" property="isDelete" />
+		<result column="NAME" property="name" />
 	</resultMap>
+
+	<resultMap id="ResultMap" type="cn.com.code.admin.api.model.UserModel" extends="BaseResultMap">
+		<collection property="roleModels" ofType="cn.com.code.admin.api.model.RoleModel">
+			<id column="ROLE_ID" property="roleId" />
+			<result column="ROLE_NAME" property="roleName" />
+			<result column="REMARK" property="remark" />
+			<result column="PARENT_ID" property="parentId" />
+		</collection>
+
+	</resultMap>
+
+	<select id="selectUserModel" resultMap="ResultMap">
+		SELECT
+			U.*,R.*
+		FROM
+			TB_USER U
+			LEFT JOIN TB_USER_ROLE UR
+				ON U.USER_ID = UR.USER_ID
+					AND UR.IS_DELETE = '0'
+			LEFT JOIN TB_ROLE R
+				ON UR.ROLE_ID = R.ROLE_ID
+					AND R.IS_DELETE = '0'
+		WHERE U.IS_DELETE = '0' ${ew.sqlSegment}
+	</select>
+
 
 </mapper>

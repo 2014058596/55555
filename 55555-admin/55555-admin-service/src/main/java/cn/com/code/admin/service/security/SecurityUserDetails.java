@@ -1,10 +1,14 @@
 package cn.com.code.admin.service.security;
 
+import cn.com.code.admin.api.model.RoleModel;
 import cn.com.code.admin.api.model.UserModel;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: SecurityUserDetails
@@ -17,7 +21,13 @@ public class SecurityUserDetails implements UserDetails {
     private UserModel userModel;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<RoleModel> roleModels = userModel.getRoleModels();
+        if(roleModels == null || roleModels.isEmpty()){
+            return null;
+        }
+        return roleModels.stream()
+                .map(roleModel -> new SimpleGrantedAuthority("ROLE_" + roleModel.getRoleId()))
+                .collect(Collectors.toList());
     }
 
     @Override

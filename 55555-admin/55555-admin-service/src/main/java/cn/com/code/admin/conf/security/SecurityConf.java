@@ -1,6 +1,5 @@
 package cn.com.code.admin.conf.security;
 
-import cn.com.code.admin.filter.TokenAuthenticationFilter;
 import cn.com.code.admin.handler.security.SecurityAuthenticationFailureHandler;
 import cn.com.code.admin.handler.security.SecurityAuthenticationSuccessHandler;
 import cn.com.code.admin.handler.security.SecurityLogoutSuccessHandler;
@@ -11,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @ClassName: SecurityConf
@@ -23,8 +21,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConf  extends WebSecurityConfigurerAdapter {
 
 
-    @Autowired
-    private AccessTokenFilter accessTokenFilter;
 
     @Autowired
     private SecurityAuthenticationFailureHandler failureHandler;
@@ -42,7 +38,6 @@ public class SecurityConf  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(accessTokenFilter, UsernamePasswordAuthenticationFilter.class);
         //开启登录配置
         http.authorizeRequests()
                 //表示访问 /hello 这个接口，需要具备 admin 这个角色
@@ -71,10 +66,6 @@ public class SecurityConf  extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();
-        //注册token拦截器
-        final TokenAuthenticationFilter tokenFilter = new TokenAuthenticationFilter();
-        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
-
         //自定义登录处理
         http.authenticationProvider(authenticationProvider);
     }

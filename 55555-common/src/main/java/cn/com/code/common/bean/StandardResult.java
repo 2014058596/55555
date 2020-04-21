@@ -118,6 +118,11 @@ public class StandardResult<T> {
         return new StandardResult(false, msg, null, HttpStatus.INTERNAL_SERVER_ERROR.code(), msg);
     }
 
+    public static StandardResult faild(HttpStatus httpStatus){
+
+        return new StandardResult(httpStatus.success(), httpStatus.reasonPhraseCN(), null, httpStatus.code(), null);
+    }
+
     /**
      * 失败
      * @param msg
