@@ -1,6 +1,6 @@
 package ${cfg.controllerApiPackage};
 
-import cn.com.geostar.common.beans.StandardResult;
+import cn.com.code.common.bean.StandardResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;

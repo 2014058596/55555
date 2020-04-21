@@ -1,6 +1,5 @@
 package cn.com.code.common.generator;
 
-import cn.com.code.common.utils.SpringContextHelper;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableField;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
@@ -355,7 +354,7 @@ public class ConfigBuilder {
             preparedStatement = connection.prepareStatement(tableCommentsSql);
             ResultSet results = preparedStatement.executeQuery();
             TableInfo tableInfo;
-            String tableNames = SpringContextHelper.getApplicationProValue("tableName");
+            String tableNames = MpGenerator.getStringValue("tableName");
 
             while (results.next()) {
                 String tableName = results.getString(querySQL.getTableName());

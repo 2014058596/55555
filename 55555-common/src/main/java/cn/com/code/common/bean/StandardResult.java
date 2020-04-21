@@ -115,7 +115,7 @@ public class StandardResult<T> {
             msg = "";
         }
 
-        return new StandardResult(false, msg, new Object(), HttpStatus.INTERNAL_SERVER_ERROR.code(), msg);
+        return new StandardResult(false, msg, null, HttpStatus.INTERNAL_SERVER_ERROR.code(), msg);
     }
 
     /**
@@ -129,9 +129,9 @@ public class StandardResult<T> {
             msg = "";
         }
         if (ex == null) {
-            return new StandardResult(false, msg, new Object(), HttpStatus.INTERNAL_SERVER_ERROR.code(), msg);
+            return new StandardResult(false, msg, null, HttpStatus.INTERNAL_SERVER_ERROR.code(), msg);
         } else {
-            return new StandardResult(false, msg, new Object(), HttpStatus.INTERNAL_SERVER_ERROR.code(), printStackTraceToString(ex));
+            return new StandardResult(false, msg, null, HttpStatus.INTERNAL_SERVER_ERROR.code(), printStackTraceToString(ex));
         }
     }
 

@@ -50,14 +50,15 @@ private static final long serialVersionUID = 1L;
 	#end
 	#if(${field.keyFlag})
 		#if(${field.keyIdentityFlag})
-        @TableId(value="${field.name}", type= IdType.AUTO)
+    @TableId(value="${field.name}", type= IdType.AUTO)
 		#elseif(${field.convert})
-        @TableId("${field.name}")
+    @TableId("${field.name}")
 		#end
 	#elseif(${field.convert})
     @TableField("${field.name}")
 	#end
 	private ${field.propertyType} ${field.propertyName};
+
 	#end
 
 

@@ -13,7 +13,7 @@ public enum HttpStatus {
     SWITCHING_PROTOCOLS(101, "Switching Protocols", "协议切换", false),
     PROCESSING(102, "Processing", "请求将继续执行", false),
     CHECKPOINT(103, "Checkpoint", "可以预加载", false),
-    OK(200, "OK", "请求已经成功处理", false),
+    OK(200, "OK", "请求已经成功处理", true),
     CREATED(201, "Created", "请求已经成功处理，并创建了资源", false),
     ACCEPTED(202, "Accepted", "请求已经接受，等待执行", false),
     NON_AUTHORITATIVE_INFORMATION(203, "Non-Authoritative Information", "请求已经成功处理，但是信息不是原始的", false),

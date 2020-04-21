@@ -1,4 +1,4 @@
-package ${package.Controller};
+package cn.com.code.admin.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,60 +17,53 @@ import com.baomidou.mybatisplus.plugins.Page;
 
 import cn.com.code.common.bean.StandardResult;
 import cn.com.code.common.bean.PaginationResult;
-#if(${superControllerClassPackage})
-import ${superControllerClassPackage};
-#end
 
-import ${package.Service}.${table.serviceName};
-import ${cfg.entityModelPackage}.${entity}Model;
+import cn.com.code.admin.service.IUserService;
+import cn.com.code.admin.api.model.UserModel;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import ${cfg.controllerApiPackage}.I${table.controllerName};
+import cn.com.code.admin.api.controller.IUserController;
 /**
  *　　
- *   ${entity} 控制器    ${table.comment}
+ *   User 控制器    用户表
  *
- *   @author ${author}
- *   @since ${date}
+ *   @author 55555
+ *   @since 2020-04-21
  */
 
 @RestController
-@Api(tags="${table.controllerName} ${table.comment}控制器")
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} implements I${table.controllerName} {
-#end
-    private final Logger logger = LoggerFactory.getLogger(${table.controllerName}.class);
+@Api(tags="UserController 用户表控制器")
+public class UserController implements IUserController {
+    private final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    public ${table.serviceName} ${table.entityPath}Service;
+    public IUserService userService;
 
     /**
      * 获取分页列表
      *
-     * @author : ${author}
-     * @since : Create in ${date}
+     * @author : 55555
+     * @since : Create in 2020-04-21
      */
     @Override
-    @ApiOperation(value="获取分页列表  ${author}", notes="获取分页列表  ${author}", response = ${entity}Model.class)
+    @ApiOperation(value="获取分页列表  55555", notes="获取分页列表  55555", response = UserModel.class)
     @ApiImplicitParams({
         @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String"),
         @ApiImplicitParam(paramType="query", name = "pageSize", value = "每页大小", required = true, dataType = "int", defaultValue = "10"),
         @ApiImplicitParam(paramType="query", name = "pageNumber", value = "页数", required = true, dataType = "int", defaultValue = "1")
     })
-    @GetMapping("/${table.entityPath}")
-    public StandardResult selectPage(@ModelAttribute ${entity}Model ${table.entityPath}Model, Integer pageSize, Integer pageNumber) {
+    @GetMapping("/user")
+    public StandardResult selectPage(@ModelAttribute UserModel userModel, Integer pageSize, Integer pageNumber) {
 		try {
 			if (pageSize == null || pageNumber == null) {
 				return StandardResult.faild("缺少必要的分页参数！");
 			}
-	     	Page<${entity}Model> page = new Page<${entity}Model>(pageNumber, pageSize);
-	     	Wrapper<${entity}Model> wrapper = new EntityWrapper<${entity}Model>(${table.entityPath}Model);
-	     	${table.entityPath}Service.selectPage(page, wrapper);
+	     	Page<UserModel> page = new Page<UserModel>(pageNumber, pageSize);
+	     	Wrapper<UserModel> wrapper = new EntityWrapper<UserModel>(userModel);
+	     	userService.selectPage(page, wrapper);
 			return PaginationResult.ok(null, page.getRecords(), page.getTotal(), page.getPages());
 		} catch (Exception e) {
 			logger.error("异常信息:", e);
@@ -81,19 +74,19 @@ public class ${table.controllerName} implements I${table.controllerName} {
 	/**
      * 获取列表
      *
-     * @author : ${author}
-     * @since : Create in ${date}
+     * @author : 55555
+     * @since : Create in 2020-04-21
      */
     @Override
-    @ApiOperation(value="获取列表  ${author}", notes="获取列表  ${author}", response = ${entity}Model.class)
+    @ApiOperation(value="获取列表  55555", notes="获取列表  55555", response = UserModel.class)
     @ApiImplicitParams({
         @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
     })
-    @GetMapping("/${table.entityPath}List")
-    public StandardResult selectList(@ModelAttribute ${entity}Model ${table.entityPath}Model) {
+    @GetMapping("/userList")
+    public StandardResult selectList(@ModelAttribute UserModel userModel) {
 		try {
-			Wrapper<${entity}Model> wrapper = new EntityWrapper<${entity}Model>(${table.entityPath}Model);
-			return StandardResult.ok(null, ${table.entityPath}Service.selectList(wrapper));
+			Wrapper<UserModel> wrapper = new EntityWrapper<UserModel>(userModel);
+			return StandardResult.ok(null, userService.selectList(wrapper));
 		} catch (Exception e) {
 			logger.error("异常信息:", e);
 			return StandardResult.faild(e);
@@ -102,16 +95,16 @@ public class ${table.controllerName} implements I${table.controllerName} {
 
      /**
      * 添加
-     * @author : ${author}
-     * @since : Create in ${date}
+     * @author : 55555
+     * @since : Create in 2020-04-21
      */
     @Override
-    @ApiOperation(value = "添加  ${author}", notes = "添加${entity} ${author}", response = ${entity}Model.class)
+    @ApiOperation(value = "添加  55555", notes = "添加User 55555", response = UserModel.class)
     @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
-    @PostMapping("/${table.entityPath}")
-    public StandardResult insert(@ModelAttribute ${entity}Model ${table.entityPath}Model) {
+    @PostMapping("/user")
+    public StandardResult insert(@ModelAttribute UserModel userModel) {
 		try {
-            ${table.entityPath}Service.insert(${table.entityPath}Model);
+            userService.insert(userModel);
             return StandardResult.ok();
         } catch (Exception e) {
             logger.error("异常信息:", e);
@@ -121,16 +114,16 @@ public class ${table.controllerName} implements I${table.controllerName} {
 
     /**
      * 修改
-     * @author : ${author}
-     * @since : Create in ${date}
+     * @author : 55555
+     * @since : Create in 2020-04-21
      */
     @Override
-    @ApiOperation(value="修改  ${author}", notes="更新${entity} ${author}", response = ${entity}Model.class)
+    @ApiOperation(value="修改  55555", notes="更新User 55555", response = UserModel.class)
     @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
-    @PutMapping("/${table.entityPath}")
-    public StandardResult updateById(@RequestBody ${entity}Model ${table.entityPath}Model) {
+    @PutMapping("/user")
+    public StandardResult updateById(@RequestBody UserModel userModel) {
         try {
-            ${table.entityPath}Service.updateById(${table.entityPath}Model);
+            userService.updateById(userModel);
             return StandardResult.ok();
         } catch (Exception e) {
             logger.error("异常信息:", e);
@@ -141,19 +134,19 @@ public class ${table.controllerName} implements I${table.controllerName} {
     /**
      * 通过id获取详情
      *
-     * @author : ${author}
-     * @since : Create in ${date}
+     * @author : 55555
+     * @since : Create in 2020-04-21
      */
     @Override
-    @ApiOperation(value="通过id获取详情  ${author}", notes="通过id获取详情  ${author}", response = ${entity}Model.class)
+    @ApiOperation(value="通过id获取详情  55555", notes="通过id获取详情  55555", response = UserModel.class)
     @ApiImplicitParams({
     	@ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String"),
     	@ApiImplicitParam(paramType="path", name = "id", value = "主键id", dataType = "String", required = true)
     })
-    @GetMapping("/${table.entityPath}/{id}")
+    @GetMapping("/user/{id}")
     public StandardResult selectById(@PathVariable String id) {
 		try {
-		     return StandardResult.ok(${table.entityPath}Service.selectById(id));
+		     return StandardResult.ok(userService.selectById(id));
 		} catch (Exception e) {
 		     logger.error("异常信息:", e);
 		     return StandardResult.faild(e);
@@ -163,19 +156,19 @@ public class ${table.controllerName} implements I${table.controllerName} {
     /**
      * 通过id删除数据
      *
-     * @author : ${author}
-     * @since : Create in ${date}
+     * @author : 55555
+     * @since : Create in 2020-04-21
      */
     @Override
-    @ApiOperation(value="通过id删除数据  ${author}", notes="通过id删除数据  ${author}", response = ${entity}Model.class)
+    @ApiOperation(value="通过id删除数据  55555", notes="通过id删除数据  55555", response = UserModel.class)
     @ApiImplicitParams({
     	@ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String"),
      	@ApiImplicitParam(paramType="path", name = "id", value = "主键id", dataType = "String", required = true)
     })
-    @DeleteMapping("/${table.entityPath}/{id}")
+    @DeleteMapping("/user/{id}")
     public StandardResult deleteById(@PathVariable String id) {
         try {
-            ${table.entityPath}Service.deleteById(id);
+            userService.deleteById(id);
             return StandardResult.ok();
         } catch (Exception e) {
             logger.error("异常信息:", e);

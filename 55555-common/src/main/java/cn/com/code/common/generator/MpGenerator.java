@@ -8,9 +8,14 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 王柳敬
@@ -24,13 +29,13 @@ public class MpGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir(SpringContextHelper.getApplicationProValue("outputDir"));
+        gc.setOutputDir(MpGenerator.getStringValue("outputDir"));
         gc.setFileOverride(true);
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
         gc.setEnableCache(false);// XML 二级缓存
         gc.setBaseResultMap(true);// XML ResultMap
         gc.setBaseColumnList(false);// XML columList
-        gc.setAuthor(SpringContextHelper.getApplicationProValue("author"));
+        gc.setAuthor(MpGenerator.getStringValue("author"));
 
         mpg.setGlobalConfig(gc);
 
@@ -44,10 +49,10 @@ public class MpGenerator {
                 return super.processTypeConvert(fieldType);
             }
         });
-        dataSourceConfig.setDriverName(SpringContextHelper.getApplicationProValue("driverName"));
-        dataSourceConfig.setUsername(SpringContextHelper.getApplicationProValue("userName"));
-        dataSourceConfig.setPassword(SpringContextHelper.getApplicationProValue("password"));
-        dataSourceConfig.setUrl(SpringContextHelper.getApplicationProValue("url"));
+        dataSourceConfig.setDriverName(MpGenerator.getStringValue("driverName"));
+        dataSourceConfig.setUsername(MpGenerator.getStringValue("userName"));
+        dataSourceConfig.setPassword(MpGenerator.getStringValue("password"));
+        dataSourceConfig.setUrl(MpGenerator.getStringValue("url"));
         mpg.setDataSource(dataSourceConfig);
 
         // 策略配置
@@ -55,7 +60,7 @@ public class MpGenerator {
         strategy.setEntityColumnConstant(true); // 生成常量字段
         // strategy.setCapitalMode(true);// 全局大写命名 ORACLE 注意
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        String tablePrefix1 = SpringContextHelper.getApplicationProValue("tablePrefix");
+        String tablePrefix1 = MpGenerator.getStringValue("tablePrefix");
         String[] tablePrefix = null;
         if(StringUtils.isNoneBlank(tablePrefix1)){
             tablePrefix = tablePrefix1.split(",");
@@ -63,7 +68,7 @@ public class MpGenerator {
         if (tablePrefix != null && tablePrefix.length > 0) {
             strategy.setTablePrefix(tablePrefix);
         }
-        String tableName = SpringContextHelper.getApplicationProValue("tableName");
+        String tableName = MpGenerator.getStringValue("tableName");
         String[] tableNames = new String[0];
         if(StringUtils.isNoneBlank(tableName)){
             tableNames = tableName.split(",");
@@ -77,11 +82,11 @@ public class MpGenerator {
         // 包配置
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setParent(null);
-        packageConfig.setEntity(SpringContextHelper.getApplicationProValue("entityPackage"));
-        packageConfig.setMapper(SpringContextHelper.getApplicationProValue("mapperPackage"));
-        packageConfig.setController(SpringContextHelper.getApplicationProValue("controllerPackage"));
-        packageConfig.setService(SpringContextHelper.getApplicationProValue("servicePackage"));
-        packageConfig.setServiceImpl(SpringContextHelper.getApplicationProValue("serviceImplPackage"));
+        packageConfig.setEntity(MpGenerator.getStringValue("entityPackage"));
+        packageConfig.setMapper(MpGenerator.getStringValue("mapperPackage"));
+        packageConfig.setController(MpGenerator.getStringValue("controllerPackage"));
+        packageConfig.setService(MpGenerator.getStringValue("servicePackage"));
+        packageConfig.setServiceImpl(MpGenerator.getStringValue("serviceImplPackage"));
         packageConfig.setXml("mapper.oracle");
         mpg.setPackageInfo(packageConfig);
 
@@ -91,11 +96,11 @@ public class MpGenerator {
             public void initMap() {
                 Map<String, Object> map = new HashMap<>(16);
                 map.put("time", DateUtils.getDate());
-                map.put("controllerApiPackage", SpringContextHelper.getApplicationProValue("controllerApiPackage"));
-                map.put("constantsClass", SpringContextHelper.getApplicationProValue("constantsClass"));
-                map.put("applicationName", SpringContextHelper.getApplicationProValue("applicationName"));
-                map.put("entityModelPackage", SpringContextHelper.getApplicationProValue("entityModelPackage"));
-                map.put("entityPackage", SpringContextHelper.getApplicationProValue("entityPackage"));
+                map.put("controllerApiPackage", MpGenerator.getStringValue("controllerApiPackage"));
+                map.put("constantsClass", MpGenerator.getStringValue("constantsClass"));
+                map.put("applicationName", MpGenerator.getStringValue("applicationName"));
+                map.put("entityModelPackage", MpGenerator.getStringValue("entityModelPackage"));
+                map.put("entityPackage", MpGenerator.getStringValue("entityPackage"));
                 this.setMap(map);
             }
         };
@@ -105,7 +110,7 @@ public class MpGenerator {
         focList.add(new FileOutConfig("templates/controllerApi.java.vm") {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                return SpringContextHelper.getApplicationProValue("outputDir") + SpringContextHelper.getApplicationProValue("controllerApiPackage") +
+                return MpGenerator.getStringValue("outputDir") + "/" + (MpGenerator.getStringValue("controllerApiPackage").replaceAll("\\.", "/" ))+
                         "/I" + tableInfo.getControllerName() + ".java";
             }
         });
@@ -114,7 +119,7 @@ public class MpGenerator {
         focList.add(new FileOutConfig("templates/entityModel.java.vm") {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                return SpringContextHelper.getApplicationProValue("outputDir") + SpringContextHelper.getApplicationProValue("entityModelPackage") +
+                return MpGenerator.getStringValue("outputDir") + "/" + (MpGenerator.getStringValue("entityModelPackage").replaceAll("\\.", "/")) +
                         "/" + tableInfo.getEntityName() + "Model.java";
             }
         });
@@ -125,5 +130,25 @@ public class MpGenerator {
         // 执行生成
         mpg.execute();
     }
+
+
+    public static PropertiesConfiguration cfg = null;
+
+    public static final String propFileName = "mp.properties";
+
+
+    static {
+        try {
+            cfg = new PropertiesConfiguration(URLDecoder.decode(SpringContextHelper.class.getResource("/").getPath(),"utf-8") + propFileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*获取String*/
+    public static String getStringValue(String key) {
+        return cfg.getString(key);
+    }
+
 
 }
