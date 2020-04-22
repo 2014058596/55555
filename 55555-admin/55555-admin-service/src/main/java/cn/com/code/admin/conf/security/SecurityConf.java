@@ -40,10 +40,6 @@ public class SecurityConf  extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //开启登录配置
         http.authorizeRequests()
-                //表示访问 /hello 这个接口，需要具备 admin 这个角色
-                .antMatchers("/hello").hasRole("admin")
-                //表示剩余的其他接口，登录之后就能访问
-                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 //登录处理接口

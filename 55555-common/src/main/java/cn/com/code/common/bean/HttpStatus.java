@@ -56,6 +56,7 @@ public enum HttpStatus {
     PRECONDITION_REQUIRED(428, "Precondition Required", "请求需要提供前置条件", false),
     TOO_MANY_REQUESTS(429, "Too Many Requests", "请求过多", false),
     REQUEST_HEADER_FIELDS_TOO_LARGE(431, "Request Header Fields Too Large", "请求头超大，拒绝请求", false),
+    EXPIRED_TOKEN(432, "EXPIRED TOKEN", "token过期", false),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error", "服务器内部错误", false),
     NOT_IMPLEMENTED(501, "Not Implemented", "服务器不支持当前请求的部分功能", false),
     BAD_GATEWAY(502, "Bad Gateway", "响应无效", false),

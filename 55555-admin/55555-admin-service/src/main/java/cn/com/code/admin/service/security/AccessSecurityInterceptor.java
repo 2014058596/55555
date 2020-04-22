@@ -1,8 +1,11 @@
 package cn.com.code.admin.service.security;
 
+import cn.com.code.common.bean.StandardResult;
+import cn.com.code.common.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.servlet.*;
 import java.io.IOException;
+
+import static cn.com.code.common.bean.HttpStatus.UNAUTHORIZED;
 
 /**
  * 资源访问过滤器 <br>
@@ -54,13 +59,15 @@ public class AccessSecurityInterceptor extends AbstractSecurityInterceptor imple
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("[自定义过滤器]: {}", " LoginSecurityInterceptor.doFilter()");
         FilterInvocation fi = new FilterInvocation(request, response, chain);
-        InterceptorStatusToken token = super.beforeInvocation(fi);
+        InterceptorStatusToken token = null;
         try {
-            /**
-             * 执行下一个拦截器
-             */
+            token = super.beforeInvocation(fi);
+            //执行下一个拦截器
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
-        } finally {
+        } catch (AccessDeniedException accessDeniedException){
+
+            response.getWriter().println(JsonUtils.objectToJson(StandardResult.faild(UNAUTHORIZED)));
+        }finally {
             super.afterInvocation(token, null);
         }
     }

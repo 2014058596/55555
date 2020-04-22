@@ -21,7 +21,7 @@ import java.util.*;
 
 /**
  * @ClassName: AccessSecurityMetadataSource
- *权限资源映射的数据源 <br>
+ * 权限资源映射的数据源 <br>
  * 这里重写并实现了基于数据库的权限数据源 <br>
  * 实现了 {@link FilterInvocationSecurityMetadataSource}接口 <br>
  * 框架的默认实现是 {@link DefaultFilterInvocationSecurityMetadataSource} <br>* @author: 55555
@@ -65,9 +65,9 @@ public class AccessSecurityMetadataSource implements FilterInvocationSecurityMet
             permissionMap.put(requestMatcher, attributes);
         }
 
-
+        Collection<ConfigAttribute> attributes = new ArrayList<>();
         // 多余的url资源， @noAuth，所有人不鉴权
-        permissionMap.put(new AntPathRequestMatcher("/**", null), null);
+        permissionMap.put(new AntPathRequestMatcher("/**", null), attributes);
         log.info("[全局权限映射集合初始化]: {}", permissionMap.toString());
     }
 

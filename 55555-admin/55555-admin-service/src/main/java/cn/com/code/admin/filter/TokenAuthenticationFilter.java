@@ -18,7 +18,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import static cn.com.code.common.bean.HttpStatus.UNAUTHORIZED;
+import static cn.com.code.common.bean.HttpStatus.EXPIRED_TOKEN;
+
 
 /**
  * @ClassName: TokenAuthenticationFilter
@@ -49,7 +50,7 @@ public class TokenAuthenticationFilter extends GenericFilterBean implements Orde
             chain.doFilter(request, response);
 
         }else {
-            response.getWriter().print(JsonUtils.objectToJson(StandardResult.faild(UNAUTHORIZED)));
+            response.getWriter().print(JsonUtils.objectToJson(StandardResult.faild(EXPIRED_TOKEN)));
         }
 
     }
