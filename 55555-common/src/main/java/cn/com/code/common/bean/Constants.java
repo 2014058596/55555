@@ -7,33 +7,31 @@ package cn.com.code.common.bean;
  * @date: 2020年04月21日 11:25 下午
  */
 
-public enum  Constants {
+public interface   Constants {
 
+    /**
+     * ***********************************基础常量****************************************
+     */
     /**
      * 删除
      */
-    IS_DELETE_YES("1"),
+    String IS_DELETE_YES = "1";
     /**
-     * 没删除
+     * 删除
      */
-    IS_DELETE_NO("0");
+    String IS_DELETE_NO = "0";
+
+    /**
+     * *********************************** 用户常量 ****************************************
+     */
 
 
-
-
-
-
-
-
-
-    private String value;
-
-    Constants(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    /**
+     * *********************************** REDIS KEY ****************************************
+     */
+    /**
+     * 权限集合key
+     */
+    String PERMISSION_KEY = "REDIS_PERMISSION_KEY";
 
 }

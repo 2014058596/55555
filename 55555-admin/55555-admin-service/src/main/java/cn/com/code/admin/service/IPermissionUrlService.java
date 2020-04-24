@@ -12,5 +12,10 @@ import com.baomidou.mybatisplus.service.IService;
  * @version 2020-04-21
  */
 public interface IPermissionUrlService extends IService<PermissionUrlModel> {
-	
+
+    /**
+     * 加载权限到redis
+     */
+    void loadResourceDefine();
+
 }

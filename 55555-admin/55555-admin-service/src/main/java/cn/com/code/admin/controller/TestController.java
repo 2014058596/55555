@@ -1,6 +1,5 @@
 package cn.com.code.admin.controller;
 
-import cn.com.code.common.bean.CommonException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +15,6 @@ public class TestController {
 
     @GetMapping("/test")
     public String test(){
-        throw new CommonException("test");
+        return "test";
     }
 }

@@ -1,13 +1,14 @@
-package cn.com.code.admin.filter;
+package cn.com.code.common.filter;
 
+import cn.com.code.admin.api.model.UserModel;
 import cn.com.code.common.bean.StandardResult;
+import cn.com.code.common.service.security.SecurityUserDetails;
 import cn.com.code.common.utils.JsonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.com.code.common.utils.RedisUtils;
 import org.springframework.core.Ordered;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -30,8 +31,7 @@ import static cn.com.code.common.bean.HttpStatus.EXPIRED_TOKEN;
 @Component
 public class TokenAuthenticationFilter extends GenericFilterBean implements Ordered {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+
 
     @Override
     public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
@@ -43,9 +43,9 @@ public class TokenAuthenticationFilter extends GenericFilterBean implements Orde
         String accessToken = httpRequest.getHeader("accessToken");
         if (null != accessToken) {
             //获取并检查令牌是否有效(从存储令牌的DB或文件中)
-            UserDetails userDetails = userDetailsService.loadUserByUsername(accessToken);
-            final UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            UserModel userModel = (UserModel) RedisUtils.use().get(accessToken);
+            UserDetails userDetails = new SecurityUserDetails(userModel);
+            final UsernamePasswordAuthenticationToken authentication =  new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             chain.doFilter(request, response);
 

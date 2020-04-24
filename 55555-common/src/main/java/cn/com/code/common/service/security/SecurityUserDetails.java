@@ -1,4 +1,4 @@
-package cn.com.code.admin.service.security;
+package cn.com.code.common.service.security;
 
 import cn.com.code.admin.api.model.RoleModel;
 import cn.com.code.admin.api.model.UserModel;

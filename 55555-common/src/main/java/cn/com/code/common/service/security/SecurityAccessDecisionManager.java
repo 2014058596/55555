@@ -1,4 +1,4 @@
-package cn.com.code.admin.service.security;
+package cn.com.code.common.service.security;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.access.AccessDecisionManager;
