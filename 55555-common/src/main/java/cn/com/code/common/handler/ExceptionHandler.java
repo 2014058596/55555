@@ -1,8 +1,8 @@
 package cn.com.code.common.handler;
 
-import cn.com.code.common.bean.CommonException;
-import cn.com.code.common.bean.ExceptionDto;
-import cn.com.code.common.bean.HttpStatus;
+import cn.com.code.base.bean.CommonException;
+import cn.com.code.base.bean.ExceptionDto;
+import cn.com.code.base.bean.HttpStatus;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

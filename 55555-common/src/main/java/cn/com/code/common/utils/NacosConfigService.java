@@ -1,7 +1,7 @@
 package cn.com.code.common.utils;
 
 
-import cn.com.code.common.bean.CommonException;
+import cn.com.code.base.bean.CommonException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;

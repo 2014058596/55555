@@ -1,4 +1,4 @@
-package cn.com.code.common.bean;
+package cn.com.code.base.bean;
 
 
 public class CommonException extends RuntimeException {

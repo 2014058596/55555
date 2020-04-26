@@ -1,9 +1,9 @@
 package cn.com.code.common.filter;
 
 import cn.com.code.admin.api.model.UserModel;
-import cn.com.code.common.bean.StandardResult;
+import cn.com.code.base.bean.StandardResult;
+import cn.com.code.base.utils.JsonUtils;
 import cn.com.code.common.service.security.SecurityUserDetails;
-import cn.com.code.common.utils.JsonUtils;
 import cn.com.code.common.utils.RedisUtils;
 import org.springframework.core.Ordered;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +19,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-import static cn.com.code.common.bean.HttpStatus.EXPIRED_TOKEN;
+import static cn.com.code.base.bean.HttpStatus.EXPIRED_TOKEN;
 
 
 /**

@@ -1,9 +1,9 @@
 package cn.com.code.admin.handler.security;
 
 import cn.com.code.admin.api.model.UserModel;
-import cn.com.code.common.bean.StandardResult;
+import cn.com.code.base.bean.StandardResult;
+import cn.com.code.base.utils.JsonUtils;
 import cn.com.code.common.utils.CommonUtils;
-import cn.com.code.common.utils.JsonUtils;
 import cn.com.code.common.utils.RedisUtils;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.Authentication;

@@ -1,9 +1,9 @@
 package cn.com.code.common.filter;
 
-import cn.com.code.common.bean.StandardResult;
+import cn.com.code.base.bean.StandardResult;
 import cn.com.code.common.service.security.AccessSecurityMetadataSource;
 import cn.com.code.common.service.security.SecurityAccessDecisionManager;
-import cn.com.code.common.utils.JsonUtils;
+import cn.com.code.base.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -18,7 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.*;
 import java.io.IOException;
 
-import static cn.com.code.common.bean.HttpStatus.UNAUTHORIZED;
+import static cn.com.code.base.bean.HttpStatus.UNAUTHORIZED;
 
 /**
  * 资源访问过滤器 <br>

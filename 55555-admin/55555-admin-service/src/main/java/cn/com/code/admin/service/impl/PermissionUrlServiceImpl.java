@@ -3,7 +3,7 @@ package cn.com.code.admin.service.impl;
 import cn.com.code.admin.api.model.PermissionUrlModel;
 import cn.com.code.admin.mapper.PermissionUrlMapper;
 import cn.com.code.admin.service.IPermissionUrlService;
-import cn.com.code.common.bean.Constants;
+import cn.com.code.base.bean.Constants;
 import cn.com.code.common.utils.RedisUtils;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-import static cn.com.code.common.bean.Constants.PERMISSION_KEY;
+import static cn.com.code.base.bean.Constants.PERMISSION_KEY;
 
 /**
  * <p>

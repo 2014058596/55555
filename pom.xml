@@ -9,6 +9,7 @@
         <module>55555-admin</module>
         <module>55555-gateway</module>
         <module>55555-system</module>
+        <module>55555-common-base</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

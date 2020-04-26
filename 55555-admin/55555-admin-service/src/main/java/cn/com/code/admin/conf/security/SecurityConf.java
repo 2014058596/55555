@@ -64,6 +64,7 @@ public class SecurityConf  extends WebSecurityConfigurerAdapter {
                 .csrf().disable();
         //自定义登录处理
         http.authenticationProvider(authenticationProvider);
+        //AuthorizationCodeServices
     }
 
     @Override

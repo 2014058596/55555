@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static cn.com.code.common.bean.Constants.PERMISSION_KEY;
+import static cn.com.code.base.bean.Constants.PERMISSION_KEY;
 
 /**
  * @ClassName: AccessSecurityMetadataSource

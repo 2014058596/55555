@@ -3,7 +3,7 @@ package cn.com.code.admin.controller;
 import cn.com.code.admin.api.controller.IPermissionUrlController;
 import cn.com.code.admin.api.model.PermissionUrlModel;
 import cn.com.code.admin.service.IPermissionUrlService;
-import cn.com.code.common.bean.CommonException;
+import cn.com.code.base.bean.CommonException;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;

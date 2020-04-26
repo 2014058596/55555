@@ -1,6 +1,8 @@
 package cn.com.code.gateway.decorator;
 
-import com.alibaba.fastjson.JSON;
+import cn.com.code.base.bean.StandardResult;
+import cn.com.code.base.utils.JsonUtils;
+import com.alibaba.fastjson.JSONObject;
 import org.reactivestreams.Publisher;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
@@ -27,8 +29,8 @@ public class ResponseDecorator extends ServerHttpResponseDecorator {
         super(delegate);
     }
 
-    public ResponseDecorator(ServerHttpResponse delegate,ServerWebExchange exchange) {
-        super(delegate);
+    public ResponseDecorator(ServerWebExchange exchange) {
+        super(exchange.getResponse());
         this.exchange = exchange;
     }
 
@@ -41,19 +43,22 @@ public class ResponseDecorator extends ServerHttpResponseDecorator {
             return super.writeWith(fluxBody.map(dataBuffer -> {
                 byte[] content = new byte[dataBuffer.readableByteCount()];
                 dataBuffer.read(content);
+                ServerHttpResponse originalResponse = exchange.getResponse();
                 //释放掉内存
                 DataBufferUtils.release(dataBuffer);
-                //原始响应
-                String originalBody = new String(content, Charset.forName("UTF-8"));
-                //修改后的响应体
-                String finalBody = JSON.toJSONString("ooooooo");
-
-                ServerHttpResponse originalResponse = exchange.getResponse();
+                Object jsonObject = JSONObject.parseObject(new String(content, Charset.forName("UTF-8")));
                 DataBufferFactory bufferFactory = originalResponse.bufferFactory();
-                return bufferFactory.wrap(finalBody.getBytes());
+                if(originalResponse.getStatusCode().is2xxSuccessful()){
+                    //原始响应
+                    return bufferFactory.wrap(JsonUtils.objectToJson(StandardResult.ok(jsonObject)).getBytes());
+                }else {
+                    return bufferFactory.wrap(JsonUtils.objectToJson(jsonObject).getBytes());
+                }
             }));
         }
         return super.writeWith(body);
     }
+
+
 
 }
