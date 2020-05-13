@@ -47,17 +47,12 @@ public class PermissionUrlServiceImpl extends ServiceImpl<PermissionUrlMapper, P
             String[] roles = permission.getRole().split(",");
             log.info("{} - {}", url, method);
             Collection<String> attributes = new ArrayList<>();
-            for (String role : roles) {
-                attributes.add(role);
-            }
-            // 占位符，需要权限才能访问的资源 都需要添加一个占位符，保证value不是空的
+            Collections.addAll(attributes, roles);
+            //占位符，需要权限才能访问的资源 都需要添加一个占位符，保证value不是空的
             attributes.add("@needAuth");
             permissionMap.put(url + "," + method, attributes);
         }
-        List<String> list = new ArrayList<>(1);
-        // 多余的url资源， @noAuth，所有人不鉴权
-        // /**,是因为后面省略了method  后面会对URL进行鉴权匹配
-        permissionMap.put("/**,", list);
+
         log.info("[全局权限映射集合初始化]: {}", permissionMap.toString());
         new RedisUtils<Map<String, Collection<String>>>().set(PERMISSION_KEY, permissionMap);
     }

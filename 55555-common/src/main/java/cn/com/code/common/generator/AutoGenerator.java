@@ -83,7 +83,7 @@ public class AutoGenerator {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.debug("异常：" + e);
             }
         }
         logger.debug("==========================文件生成完成！！！==========================");
@@ -123,9 +123,7 @@ public class AutoGenerator {
         for (TableInfo tableInfo : tableList) {
             ctx = new VelocityContext();
             if (null != injectionConfig) {
-                /**
-                 * 注入自定义配置
-                 */
+                //注入自定义配置
                 injectionConfig.initMap();
                 ctx.put("cfg", injectionConfig.getMap());
             }
@@ -273,9 +271,7 @@ public class AutoGenerator {
                 vmToFile(context, template.getController(), controllerFile);
             }
             if (injectionConfig != null) {
-                /**
-                 * 输出自定义文件内容
-                 */
+                //输出自定义文件内容
                 List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
                 if (CollectionUtils.isNotEmpty(focList)) {
                     for (FileOutConfig foc : focList) {

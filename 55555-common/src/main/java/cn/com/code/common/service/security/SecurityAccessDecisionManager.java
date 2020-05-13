@@ -10,7 +10,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * @ClassName: SecurityAccessDecisionManager
@@ -34,11 +33,8 @@ public class SecurityAccessDecisionManager implements AccessDecisionManager {
 
             log.info("[资源权限]: {}", configAttributes);
             log.info("[用户权限]: {}", authentication.getAuthorities());
-
-            Iterator<ConfigAttribute> it = configAttributes.iterator();
-            while (it.hasNext()) {
+            for (ConfigAttribute resourceAttr : configAttributes) {
                 // 资源的权限
-                ConfigAttribute resourceAttr = it.next();
                 String resourceRole = "ROLE_" + resourceAttr.getAttribute();
 
                 // 用户的权限

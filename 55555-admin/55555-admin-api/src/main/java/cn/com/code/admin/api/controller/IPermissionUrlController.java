@@ -1,13 +1,11 @@
 package cn.com.code.admin.api.controller;
 
+import cn.com.code.admin.api.constants.AdminConstants;
+import cn.com.code.admin.api.model.PermissionUrlModel;
+import cn.com.code.base.bean.StandardResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.*;
-import cn.com.code.admin.api.model.PermissionUrlModel;
-import cn.com.code.admin.api.constants.AdminConstants;
-import com.baomidou.mybatisplus.plugins.Page;
-
-import java.util.List;
 
 
 
@@ -16,7 +14,7 @@ import java.util.List;
  *   PermissionUrl API接口    
  *
  *   @author 55555
- *   @since 2020-04-24
+ *   @since 2020-05-07
  */
 
 @FeignClient(name = AdminConstants.APPLICATION_NAME)
@@ -26,15 +24,15 @@ public interface IPermissionUrlController {
     /**
      * 获取分页列表
      *
+     * @param permissionUrlModel
      * @param pageSize
      * @param pageNumber
-     * @param permissionUrlModel
      * @return
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @GetMapping("/permissionUrl")
-    Page<PermissionUrlModel> selectPage(
+    StandardResult selectPage(
             @SpringQueryMap PermissionUrlModel permissionUrlModel,
             @RequestParam(name = "pageSize", required = false) Integer pageSize,
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber);
@@ -43,11 +41,13 @@ public interface IPermissionUrlController {
      * 获取列表
      *
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
 
     @GetMapping("/permissionUrlList")
-    List<PermissionUrlModel> selectList(@SpringQueryMap PermissionUrlModel permissionUrlModel);
+    StandardResult selectList(@SpringQueryMap PermissionUrlModel permissionUrlModel);
+
+
 
 
 
@@ -57,10 +57,10 @@ public interface IPermissionUrlController {
      * @param id
      * @return
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @GetMapping("/permissionUrl/{id}")
-    PermissionUrlModel selectById(@PathVariable("id") String id);
+    StandardResult selectById(@PathVariable("id") String id);
 
     /**
      * 通过id删除PermissionUrlModel
@@ -68,10 +68,10 @@ public interface IPermissionUrlController {
      * @param id
      * @return
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @DeleteMapping("/permissionUrl/{id}")
-    Boolean deleteById(@PathVariable("id") String id);
+    StandardResult deleteById(@PathVariable("id") String id);
 
     /**
      * 添加PermissionUrlModel
@@ -79,10 +79,10 @@ public interface IPermissionUrlController {
      * @param permissionUrlModel
      * @return
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @PostMapping("/permissionUrl")
-    Boolean insert(@ModelAttribute PermissionUrlModel permissionUrlModel);
+    StandardResult insert(@ModelAttribute PermissionUrlModel permissionUrlModel);
 
     /**
      * 更新PermissionUrlModel
@@ -90,10 +90,10 @@ public interface IPermissionUrlController {
      * @param permissionUrlModel
      * @return
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @PutMapping("/permissionUrl")
-    Boolean updateById(@RequestBody PermissionUrlModel permissionUrlModel);
+    StandardResult updateById(@RequestBody PermissionUrlModel permissionUrlModel);
     
     
 

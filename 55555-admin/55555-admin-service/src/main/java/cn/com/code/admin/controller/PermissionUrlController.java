@@ -4,6 +4,8 @@ import cn.com.code.admin.api.controller.IPermissionUrlController;
 import cn.com.code.admin.api.model.PermissionUrlModel;
 import cn.com.code.admin.service.IPermissionUrlService;
 import cn.com.code.base.bean.CommonException;
+import cn.com.code.base.bean.PaginationResult;
+import cn.com.code.base.bean.StandardResult;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -15,16 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-
 /**
  *　　
  *   PermissionUrl 控制器    
  *
  *   @author 55555
- *   @since 2020-04-24
+ *   @since 2020-05-07
  */
 
 @RestController
@@ -39,7 +37,7 @@ public class PermissionUrlController implements IPermissionUrlController {
      * 获取分页列表
      *
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @Override
     @ApiOperation(value="获取分页列表  55555", notes="获取分页列表  55555", response = PermissionUrlModel.class)
@@ -49,21 +47,21 @@ public class PermissionUrlController implements IPermissionUrlController {
         @ApiImplicitParam(paramType="query", name = "pageNumber", value = "页数", required = true, dataType = "int", defaultValue = "1")
     })
     @GetMapping("/permissionUrl")
-    public Page<PermissionUrlModel> selectPage(@ModelAttribute PermissionUrlModel permissionUrlModel, Integer pageSize, Integer pageNumber) {
+    public StandardResult selectPage(@ModelAttribute PermissionUrlModel permissionUrlModel, Integer pageSize, Integer pageNumber) {
         if (pageSize == null || pageNumber == null) {
             throw new CommonException("缺少必要的分页参数！");
         }
-        Page<PermissionUrlModel> page = new Page<PermissionUrlModel>(pageNumber, pageSize);
-        Wrapper<PermissionUrlModel> wrapper = new EntityWrapper<PermissionUrlModel>(permissionUrlModel);
+        Page<PermissionUrlModel> page = new Page<>(pageNumber, pageSize);
+        Wrapper<PermissionUrlModel> wrapper = new EntityWrapper<>(permissionUrlModel);
         permissionUrlService.selectPage(page, wrapper);
-        return page;
+        return PaginationResult.ok(null, page.getRecords(), page.getTotal(), page.getPages());
     }
 
 	/**
      * 获取列表
      *
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @Override
     @ApiOperation(value="获取列表  55555", notes="获取列表  55555", response = PermissionUrlModel.class)
@@ -71,77 +69,71 @@ public class PermissionUrlController implements IPermissionUrlController {
         @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
     })
     @GetMapping("/permissionUrlList")
-    public List<PermissionUrlModel> selectList(@ModelAttribute PermissionUrlModel permissionUrlModel) {
-
-        Wrapper<PermissionUrlModel> wrapper = new EntityWrapper<PermissionUrlModel>(permissionUrlModel);
-        return permissionUrlService.selectList(wrapper);
-
+    public StandardResult selectList(@ModelAttribute PermissionUrlModel permissionUrlModel) {
+        Wrapper<PermissionUrlModel> wrapper = new EntityWrapper<>(permissionUrlModel);
+        return StandardResult.ok(null, permissionUrlService.selectList(wrapper));
     }
 
      /**
      * 添加
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @Override
     @ApiOperation(value = "添加  55555", notes = "添加PermissionUrl 55555", response = PermissionUrlModel.class)
     @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
     @PostMapping("/permissionUrl")
-    public Boolean insert(@ModelAttribute PermissionUrlModel permissionUrlModel) {
-
-        return permissionUrlService.insert(permissionUrlModel);
-
-        }
+    public StandardResult insert(@ModelAttribute PermissionUrlModel permissionUrlModel) {
+        permissionUrlService.insert(permissionUrlModel);
+        return StandardResult.ok();
+    }
 
     /**
      * 修改
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @Override
     @ApiOperation(value="修改  55555", notes="更新PermissionUrl 55555", response = PermissionUrlModel.class)
     @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
     @PutMapping("/permissionUrl")
-    public Boolean updateById(@RequestBody PermissionUrlModel permissionUrlModel) {
-
-        return permissionUrlService.updateById(permissionUrlModel);
-
+    public StandardResult updateById(@RequestBody PermissionUrlModel permissionUrlModel) {
+        permissionUrlService.updateById(permissionUrlModel);
+        return StandardResult.ok();
     }
 
     /**
      * 通过id获取详情
      *
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @Override
     @ApiOperation(value="通过id获取详情  55555", notes="通过id获取详情  55555", response = PermissionUrlModel.class)
     @ApiImplicitParams({
     	@ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String"),
-    	@ApiImplicitParam(paramType = "path", name = "id", value = "主键id", dataType = "String", required = true)
+    	@ApiImplicitParam(paramType="path", name = "id", value = "主键id", dataType = "String", required = true)
     })
     @GetMapping("/permissionUrl/{id}")
-    public PermissionUrlModel selectById(@PathVariable String id) {
-
-        return permissionUrlService.selectById(id);
-
+    public StandardResult selectById(@PathVariable String id) {
+        return StandardResult.ok(permissionUrlService.selectById(id));
     }
 
     /**
      * 通过id删除数据
      *
      * @author : 55555
-     * @since : Create in 2020-04-24
+     * @since : Create in 2020-05-07
      */
     @Override
     @ApiOperation(value="通过id删除数据  55555", notes="通过id删除数据  55555", response = PermissionUrlModel.class)
     @ApiImplicitParams({
     	@ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String"),
-     	@ApiImplicitParam(paramType = "path", name = "id", value = "主键id", dataType = "String", required = true)
+     	@ApiImplicitParam(paramType="path", name = "id", value = "主键id", dataType = "String", required = true)
     })
     @DeleteMapping("/permissionUrl/{id}")
-    public Boolean deleteById(@PathVariable String id) {
-
-        return permissionUrlService.deleteById(id);
+    public StandardResult deleteById(@PathVariable String id) {
+        permissionUrlService.deleteById(id);
+        return StandardResult.ok();
     }
 }

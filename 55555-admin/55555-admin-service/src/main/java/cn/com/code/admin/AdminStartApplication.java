@@ -5,11 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import java.util.Base64;
 
 /**
  * @ClassName: AdminStartApplication
@@ -22,6 +21,7 @@ import java.util.Base64;
 @EnableDiscoveryClient
 @MapperScan("cn.com.code.admin.mapper")
 @EnableTransactionManagement
+@EnableCircuitBreaker
 public class AdminStartApplication extends SpringBootServletInitializer {
 
     @Override
@@ -30,8 +30,7 @@ public class AdminStartApplication extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
-        byte[] encode3 = Base64.getEncoder().encode("nanshan-test_MDAtMDAtMDAtMDAtMDAtMDA=_2099-04-10 00:00:00".getBytes());
-        System.out.println(new String(encode3));
+
         SpringApplication.run(AdminStartApplication.class, args);
     }
 

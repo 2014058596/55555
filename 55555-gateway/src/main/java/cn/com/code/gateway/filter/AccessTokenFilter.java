@@ -1,6 +1,5 @@
 package cn.com.code.gateway.filter;
 
-import cn.com.code.gateway.decorator.ResponseDecorator;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -19,7 +18,7 @@ public class AccessTokenFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         HttpHeaders headers = exchange.getRequest().getHeaders();
 
-        return chain.filter(exchange.mutate().response(new ResponseDecorator(exchange)).build());
+        return chain.filter(exchange);
     }
 
     @Override

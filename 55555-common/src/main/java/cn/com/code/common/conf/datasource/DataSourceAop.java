@@ -1,6 +1,7 @@
 package cn.com.code.common.conf.datasource;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -22,6 +23,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @ConditionalOnClass(DruidDataSource.class)
+@Log4j2
 public class DataSourceAop {
 	
 	@Pointcut("@annotation(cn.com.code.common.conf.datasource.DataSource)")
@@ -48,7 +50,7 @@ public class DataSourceAop {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.debug(e);
 		} 
 		
 		System.out.println(dataSource);

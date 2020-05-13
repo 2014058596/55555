@@ -1,24 +1,28 @@
 package ${package.Controller};
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.baomidou.mybatisplus.plugins.Page;
+import cn.com.code.base.bean.StandardResult;
+import cn.com.code.base.bean.PaginationResult;
 #if(${superControllerClassPackage})
 import ${superControllerClassPackage};
 #end
+
 import ${package.Service}.${table.serviceName};
 import ${cfg.entityModelPackage}.${entity}Model;
-import ${cfg.controllerApiPackage}.I${table.controllerName};
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
+import ${cfg.controllerApiPackage}.I${table.controllerName};
 /**
  *　　
  *   ${entity} 控制器    ${table.comment}
@@ -53,14 +57,14 @@ public class ${table.controllerName} implements I${table.controllerName} {
         @ApiImplicitParam(paramType="query", name = "pageNumber", value = "页数", required = true, dataType = "int", defaultValue = "1")
     })
     @GetMapping("/${table.entityPath}")
-    public Page<${entity}Model> selectPage(@ModelAttribute ${entity}Model ${table.entityPath}Model, Integer pageSize, Integer pageNumber) {
+    public StandardResult selectPage(@ModelAttribute ${entity}Model ${table.entityPath}Model, Integer pageSize, Integer pageNumber) {
         if (pageSize == null || pageNumber == null) {
-            throw new CommonException("缺少必要的分页参数！");
+            return StandardResult.faild("缺少必要的分页参数！");
         }
         Page<${entity}Model> page = new Page<${entity}Model>(pageNumber, pageSize);
-        Wrapper<${entity}Model> wrapper = new EntityWrapper<${entity}Model>(${table.entityPath}Model);
+        Wrapper<${entity}Model> wrapper = new EntityWrapper<>(${table.entityPath}Model);
         ${table.entityPath}Service.selectPage(page, wrapper);
-        return page;
+        return PaginationResult.ok(null, page.getRecords(), page.getTotal(), page.getPages());
     }
 
 	/**
@@ -75,11 +79,9 @@ public class ${table.controllerName} implements I${table.controllerName} {
         @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
     })
     @GetMapping("/${table.entityPath}List")
-    public List<${entity}Model> selectList(@ModelAttribute ${entity}Model ${table.entityPath}Model) {
-
-        Wrapper<${entity}Model> wrapper = new EntityWrapper<${entity}Model>(${table.entityPath}Model);
-        return ${table.entityPath}Service.selectList(wrapper);
-
+    public StandardResult selectList(@ModelAttribute ${entity}Model ${table.entityPath}Model) {
+        Wrapper<${entity}Model> wrapper = new EntityWrapper<>(${table.entityPath}Model);
+        return StandardResult.ok(null, ${table.entityPath}Service.selectList(wrapper));
     }
 
      /**
@@ -91,11 +93,10 @@ public class ${table.controllerName} implements I${table.controllerName} {
     @ApiOperation(value = "添加  ${author}", notes = "添加${entity} ${author}", response = ${entity}Model.class)
     @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
     @PostMapping("/${table.entityPath}")
-    public Boolean insert(@ModelAttribute ${entity}Model ${table.entityPath}Model) {
-
-        return ${table.entityPath}Service.insert(${table.entityPath}Model);
-
-        }
+    public StandardResult insert(@ModelAttribute ${entity}Model ${table.entityPath}Model) {
+        ${table.entityPath}Service.insert(${table.entityPath}Model);
+        return StandardResult.ok();
+    }
 
     /**
      * 修改
@@ -106,10 +107,9 @@ public class ${table.controllerName} implements I${table.controllerName} {
     @ApiOperation(value="修改  ${author}", notes="更新${entity} ${author}", response = ${entity}Model.class)
     @ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String")
     @PutMapping("/${table.entityPath}")
-    public Boolean updateById(@RequestBody ${entity}Model ${table.entityPath}Model) {
-
-        return ${table.entityPath}Service.updateById(${table.entityPath}Model);
-
+    public StandardResult updateById(@RequestBody ${entity}Model ${table.entityPath}Model) {
+        ${table.entityPath}Service.updateById(${table.entityPath}Model);
+        return StandardResult.ok();
     }
 
     /**
@@ -122,13 +122,11 @@ public class ${table.controllerName} implements I${table.controllerName} {
     @ApiOperation(value="通过id获取详情  ${author}", notes="通过id获取详情  ${author}", response = ${entity}Model.class)
     @ApiImplicitParams({
     	@ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String"),
-    	@ApiImplicitParam(paramType = "path", name = "id", value = "主键id", dataType = "String", required = true)
+    	@ApiImplicitParam(paramType="path", name = "id", value = "主键id", dataType = "String", required = true)
     })
     @GetMapping("/${table.entityPath}/{id}")
-    public ${entity}Model selectById(@PathVariable String id) {
-
-        return ${table.entityPath}Service.selectById(id);
-
+    public StandardResult selectById(@PathVariable String id) {
+        return StandardResult.ok(${table.entityPath}Service.selectById(id));
     }
 
     /**
@@ -141,11 +139,11 @@ public class ${table.controllerName} implements I${table.controllerName} {
     @ApiOperation(value="通过id删除数据  ${author}", notes="通过id删除数据  ${author}", response = ${entity}Model.class)
     @ApiImplicitParams({
     	@ApiImplicitParam(paramType = "query", name = "accessToken", value = "令牌", required = true, dataType = "String"),
-     	@ApiImplicitParam(paramType = "path", name = "id", value = "主键id", dataType = "String", required = true)
+     	@ApiImplicitParam(paramType="path", name = "id", value = "主键id", dataType = "String", required = true)
     })
     @DeleteMapping("/${table.entityPath}/{id}")
-    public Boolean deleteById(@PathVariable String id) {
-
-        return ${table.entityPath}Service.deleteById(id);
+    public StandardResult deleteById(@PathVariable String id) {
+        ${table.entityPath}Service.deleteById(id);
+        return StandardResult.ok();
     }
 }

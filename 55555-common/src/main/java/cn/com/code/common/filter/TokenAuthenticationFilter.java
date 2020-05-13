@@ -1,8 +1,6 @@
 package cn.com.code.common.filter;
 
 import cn.com.code.admin.api.model.UserModel;
-import cn.com.code.base.bean.StandardResult;
-import cn.com.code.base.utils.JsonUtils;
 import cn.com.code.common.service.security.SecurityUserDetails;
 import cn.com.code.common.utils.RedisUtils;
 import org.springframework.core.Ordered;
@@ -18,8 +16,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-
-import static cn.com.code.base.bean.HttpStatus.EXPIRED_TOKEN;
 
 
 /**
@@ -47,10 +43,10 @@ public class TokenAuthenticationFilter extends GenericFilterBean implements Orde
             UserDetails userDetails = new SecurityUserDetails(userModel);
             final UsernamePasswordAuthenticationToken authentication =  new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            chain.doFilter(request, response);
 
         }else {
-            response.getWriter().print(JsonUtils.objectToJson(StandardResult.faild(EXPIRED_TOKEN)));
+            chain.doFilter(request, response);
+            //response.getWriter().print(JsonUtils.objectToJson(StandardResult.faild(EXPIRED_TOKEN)));
         }
 
     }

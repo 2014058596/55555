@@ -27,10 +27,8 @@ public class JsonUtils {
      */
     public static String objectToJson(Object data) {
     	try {
-			String string = MAPPER.writeValueAsString(data);
-			return string;
+			return MAPPER.writeValueAsString(data);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
 			throw new RuntimeException("Json解析错误");
 		}
     }
@@ -44,10 +42,8 @@ public class JsonUtils {
      */
     public static <T> T jsonToPojo(String jsonData, Class<T> beanType) {
         try {
-            T t = MAPPER.readValue(jsonData, beanType);
-            return t;
+            return MAPPER.readValue(jsonData, beanType);
         } catch (Exception e) {
-        	e.printStackTrace();
         	throw new RuntimeException("Json解析错误");
         }
     }
@@ -63,10 +59,8 @@ public class JsonUtils {
     public static <T>List<T> jsonToList(String jsonData, Class<T> beanType) {
     	JavaType javaType = MAPPER.getTypeFactory().constructParametricType(List.class, beanType);
     	try {
-    		List<T> list = MAPPER.readValue(jsonData, javaType);
-    		return list;
+    		return MAPPER.readValue(jsonData, javaType);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RuntimeException("Json解析错误");
 		}
     	
@@ -88,7 +82,7 @@ public class JsonUtils {
      * @param json
      * @return
      */
-    public final static boolean isJSON(String json) {
+    public static boolean isJSON(String json) {
         try {
             final ObjectMapper mapper = new ObjectMapper();
             mapper.readTree(json);

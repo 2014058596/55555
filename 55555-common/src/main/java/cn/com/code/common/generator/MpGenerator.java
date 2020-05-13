@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.generator.config.converts.MySqlTypeConvert;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang3.StringUtils;
 
@@ -22,6 +23,7 @@ import java.util.Map;
  * @version 创建时间：2018年8月19日---下午8:09:35
  * @description
  */
+@Log4j2
 public class MpGenerator {
 
     public static void main(String[] args) {
@@ -141,7 +143,7 @@ public class MpGenerator {
         try {
             cfg = new PropertiesConfiguration(URLDecoder.decode(SpringContextHelper.class.getResource("/").getPath(),"utf-8") + propFileName);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.debug(e);
         }
     }
 

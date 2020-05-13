@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.config.rules.QuerySQL;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -24,6 +25,7 @@ import java.util.*;
  * @author YangHu, tangguo, hubin
  * @since 2016-08-30
  */
+@Log4j2
 public class ConfigBuilder {
 
     /**
@@ -407,7 +409,7 @@ public class ConfigBuilder {
                 includeTableList = tableList;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.debug(e);
         } finally {
             // 释放资源
             try {
@@ -419,7 +421,7 @@ public class ConfigBuilder {
                     connection.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.debug(e);
             }
         }
         return processTable(includeTableList, strategy, config.getTablePrefix());
@@ -519,7 +521,7 @@ public class ConfigBuilder {
                 }
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.debug(e);
             }
         }
         tableInfo.setFields(fieldList);

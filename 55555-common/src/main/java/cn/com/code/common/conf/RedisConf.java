@@ -25,8 +25,8 @@ public class RedisConf {
 
     @Bean("redisTemplate")
     @SuppressWarnings("all")
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory, ObjectMapper objectMapper) {
-        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
 
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
