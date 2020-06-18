@@ -75,11 +75,35 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
 
-        <!--spring data ElasticSearch-->
+        <dependency>
+            <groupId>com.bbossgroups.plugins</groupId>
+            <artifactId>bboss-elasticsearch-spring-boot-starter</artifactId>
+            <version>6.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bbossgroups.plugins</groupId>
+            <artifactId>bboss-elasticsearch-rest-jdbc</artifactId>
+        </dependency>
+
+        <!-- es相关jar包 -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>5.6.8</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- 测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
+
 
     </dependencies>
     <build>
@@ -94,12 +118,31 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
+
             <!-- 安装时不运行测试类 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>cn.com.55555</groupId>
+                <artifactId>remoteDeploy</artifactId>
+                <version>0.0.2</version>
+                <configuration>
+                    <fullClientName>${project.build.directory}/${project.build.finalName}.jar</fullClientName>
+                    <serverDeploy>
+                        <url>
+                            <host>geosocial.ink</host>
+                            <port>220</port>
+                            <user>geostar</user>
+                            <pass>123456</pass>
+                            <deployUrl>/home/geostar/spring-boot/jars</deployUrl>
+                            <javaHome>/usr/soft/jdk1.8.0_171</javaHome>
+                        </url>
+                    </serverDeploy>
                 </configuration>
             </plugin>
         </plugins>

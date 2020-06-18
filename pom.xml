@@ -10,6 +10,8 @@
         <module>55555-gateway</module>
         <module>55555-system</module>
         <module>55555-common-base</module>
+        <module>55555-test</module>
+        <module>55555-sshDeplay</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -30,7 +32,6 @@
         <commons-beanutils.version>1.8.3</commons-beanutils.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <spring-aop.version>2.1.4.RELEASE</spring-aop.version>
-        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
         <log4j.version>1.2.17</log4j.version>
         <mybatis-plus.version>2.1.4</mybatis-plus.version>
@@ -198,11 +199,15 @@
                 <version>${commons-pool2.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-                <version>${spring-boot.version}</version>
+                <groupId>com.bbossgroups.plugins</groupId>
+                <artifactId>bboss-elasticsearch-spring-boot-starter</artifactId>
+                <version>6.1.1</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.bbossgroups.plugins</groupId>
+                <artifactId>bboss-elasticsearch-rest-jdbc</artifactId>
+                <version>6.1.1</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

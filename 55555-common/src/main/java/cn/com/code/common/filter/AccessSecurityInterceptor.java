@@ -59,7 +59,6 @@ public class AccessSecurityInterceptor extends AbstractSecurityInterceptor imple
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        log.info("[自定义过滤器]: {}", " LoginSecurityInterceptor.doFilter()");
         FilterInvocation fi = new FilterInvocation(request, response, chain);
         InterceptorStatusToken token = null;
         try {

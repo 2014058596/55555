@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = AdminConstants.APPLICATION_NAME)
 public interface IPermissionUrlController {
 
-    
     /**
      * 获取分页列表
      *

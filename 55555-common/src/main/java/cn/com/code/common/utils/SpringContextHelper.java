@@ -16,9 +16,10 @@ import javax.validation.constraints.NotNull;
  * @author yangxp
  * @version 2018-08-28
  */
-@Order(1)
+@Order(0)
 @Component
 public class SpringContextHelper implements ApplicationContextAware {
+
 
     /**
      * Spring应用上下文环境
