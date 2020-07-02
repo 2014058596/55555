@@ -41,7 +41,7 @@
         <alibaba-nacos.version>0.2.2.RELEASE</alibaba-nacos.version>
         <swagger.version>2.7.0</swagger.version>
         <swagger-annotations.version>1.5.13</swagger-annotations.version>
-        <mysql.version>8.0.11</mysql.version>
+        <mysql.version>8.0.16</mysql.version>
         <velocity.version>2.0</velocity.version>
         <spring-cloud-admin.version>2.1.4</spring-cloud-admin.version>
         <zipkin.version>2.11.4</zipkin.version>
