@@ -221,7 +221,11 @@ public class RemoteDeploy extends AbstractMojo {
         }
     }
 
-
+    /**
+     * 根据输入流获取字符串
+     * @param inputStream
+     * @return
+     */
     public static String getString(InputStream inputStream){
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];
