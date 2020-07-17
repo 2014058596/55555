@@ -29,7 +29,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <commons-lang3.version>3.6</commons-lang3.version>
-        <commons-beanutils.version>1.8.3</commons-beanutils.version>
+        <commons-beanutils.version>1.9.2</commons-beanutils.version>
         <commons-configuration.version>1.10</commons-configuration.version>
         <spring-aop.version>2.1.4.RELEASE</spring-aop.version>
         <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
