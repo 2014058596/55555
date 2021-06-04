@@ -47,7 +47,7 @@
         <spring-cloud-admin.version>2.1.4</spring-cloud-admin.version>
         <zipkin.version>2.11.4</zipkin.version>
         <commons-pool2.version>2.6.2</commons-pool2.version>
-        <httpclient.version>4.5.5</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
 
     </properties>
     <dependencyManagement>
