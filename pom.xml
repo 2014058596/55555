@@ -38,7 +38,7 @@
         <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
         <mybatis-plus.version>2.1.4</mybatis-plus.version>
         <druid-spring-boot-starter.version>1.1.1</druid-spring-boot-starter.version>
-        <fastjson.version>1.2.49</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <alibaba-nacos.version>0.2.2.RELEASE</alibaba-nacos.version>
         <swagger.version>2.7.0</swagger.version>
         <swagger-annotations.version>1.5.13</swagger-annotations.version>
